@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Canair - Primer track público</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin="" />
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"
+    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+    crossorigin=""></script>
+  <script src="../assets/js/maps/first_track.js"></script>
+
+
+</head>
+
+<body class="is-preload">
+
+  <!-- Header -->
+  <header id="header">
+    <a href="/index.html" class="title">Canair</a>
+    <nav>
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Wrapper -->
+  <div id="wrapper">s
+
+    <!-- Main -->
+    <section id="main" class="wrapper">
+      <div class="inner">
+        <h1 class="major">Algunos tracks compartidos</h1>
+        <p>Estas son algunas de las mediciones compartidas por algunos de nuestros
+          usuarios que tienen un Android y un dispositivo, los recorridos cortos en bicicleta
+          y otros en automóvil.
+        </p>
+        <dl>
+          <dt>Fecha</dt>
+          <dd id="date"></dd>
+          <dt>Medición</dt>
+          <dd id="interval"></dd>
+          <dt>Archivo</dt>
+          <dd><a id="filename" targer="_blank" href="">Ver</a></dd>
+        </dl>
+        <form>
+          <select id="select_map"></select>
+        </form>
+        <div id="mapid" style="width: 600px; height: 400px;"></div>
+        <script>
+          var data_references = [
+            '20190502185441',
+            '20190407191913',
+            '20190403124450',
+            '20190402112323',
+            '20190327153956', 
+            '20190327141715',
+            '20190323085459', 
+            '20190308180811', 
+            '20190227192004',
+            '20190211183737',
+          ];
+          var mapsample = L.map('mapid').setView([4.60, -74.13], 14);
+          var layerGroup = L.layerGroup().addTo(mapsample);
+          $('#select_map').html(function(){
+            inner_data = '';
+            data_references.forEach(element => {
+              inner_data += '<option value="' + element + '">' + element + '</option>'
+            });
+            return inner_data
+          });
+          $('#select_map').click(function() {
+            load_canairio_layer(mapsample, layerGroup, $(this).val());
+          })
+          L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+              '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+              'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: 'mapbox.streets'
+          }).addTo(mapsample);
+          load_canairio_layer(mapsample, layerGroup, data_references[0]);
+
+        </script>
+        <h2>PM25 <span id="pm25_holder"></span></h2>
+      </div>
+    </section>
+  </div>
+
+</body>
+
+</html>
