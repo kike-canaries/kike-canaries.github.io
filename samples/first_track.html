@@ -3,7 +3,7 @@
 
 <head>
 
-  <title>Canair - Primer track público</title>
+  <title>Canair - Ejemplos de mediciones en recorrido</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="../assets/css/main.css" />
@@ -19,8 +19,6 @@
     integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
     crossorigin=""></script>
   <script src="../assets/js/maps/first_track.js"></script>
-
-
 </head>
 
 <body class="is-preload">
@@ -36,7 +34,7 @@
   </header>
 
   <!-- Wrapper -->
-  <div id="wrapper">s
+  <div id="wrapper">
 
     <!-- Main -->
     <section id="main" class="wrapper">
@@ -44,20 +42,23 @@
         <h1 class="major">Algunos tracks compartidos</h1>
         <p>Estas son algunas de las mediciones compartidas por algunos de nuestros
           usuarios que tienen un Android y un dispositivo, los recorridos cortos en bicicleta
-          y otros en automóvil.
+          y otros en automóvil.  Es nuestro primer intento por proyectar de forma pública
+          la información que vamos generando.  Si tienes sugerencias, por favor no dudes
+          en <a href="/index.html#three">contactarnos</a>.  Anímate a contar con tu dispositivo para que
+          puedas reportar bien sea con una estación fija o cuando te movilizas por la ciudad.
         </p>
-        <dl>
-          <dt>Fecha</dt>
-          <dd id="date"></dd>
-          <dt>Medición</dt>
-          <dd id="interval"></dd>
-          <dt>Archivo</dt>
-          <dd><a id="filename" targer="_blank" href="">Ver</a></dd>
-        </dl>
+        <ul class="alt">
+          <li><b>Fecha</b>: <span id="date">...</span></li>
+          <li><b>Medición</b>: <span id="interval">...</span></li>
+          <li><b>Archivo</b>: <span><a id="filename" targer="_blank" href="">Ver</a></span></li>
+        </ul>
+
         <form>
           <select id="select_map"></select>
         </form>
-        <div id="mapid" style="width: 600px; height: 400px;"></div>
+        <div class="loader" style="display: none">Trayendo algo para tí, vale la pena...</div>
+        <h2>PM25 <span id="pm25_holder"></span></h2>
+        <div id="mapid" style="width: 100%; height: 400px;"></div>
         <script>
           var data_references = [
             '20190502185441',
@@ -76,11 +77,11 @@
           $('#select_map').html(function(){
             inner_data = '';
             data_references.forEach(element => {
-              inner_data += '<option value="' + element + '">' + element + '</option>'
+              inner_data += '<option value="' + element + '">' + element.substr(0, 8) + '</option>'
             });
             return inner_data
           });
-          $('#select_map').click(function() {
+          $('#select_map').change(function() {
             load_canairio_layer(mapsample, layerGroup, $(this).val());
           })
           L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
@@ -93,7 +94,6 @@
           load_canairio_layer(mapsample, layerGroup, data_references[0]);
 
         </script>
-        <h2>PM25 <span id="pm25_holder"></span></h2>
       </div>
     </section>
   </div>

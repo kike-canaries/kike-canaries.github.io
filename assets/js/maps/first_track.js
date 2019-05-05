@@ -76,6 +76,7 @@ function configure_map(mapsample, layerGroup, data) {
 }
 
 function load_canairio_layer(mapsample, layerGroup, filename) {
+  $('.loader').show();
   var reference = 'data/' + filename + '.json';
   layerGroup.clearLayers();
   $('#filename').attr('href', reference);
@@ -85,6 +86,7 @@ function load_canairio_layer(mapsample, layerGroup, filename) {
     $('#date').text(the_date);
     layer = configure_map(mapsample, layerGroup, data);
     mapsample.fitBounds(layer.getBounds());
+    $('.loader').hide();
   })
   .fail(function () { alert('No pudimos obtener los puntos, déjanos saber info@canair.io') });
 }
