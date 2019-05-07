@@ -119,22 +119,25 @@
             return inner_data
           });
 
-          var mapsample = L.map('mapid').setView([4.60, -74.13], 14);
-          var info = conventions_map(mapsample);
+          var measurements = L.layerGroup();
 
-          var layerGroup = L.layerGroup().addTo(mapsample);
-          $('#select_map').change(function () {
-            load_canairio_layer(mapsample, layerGroup, $(this).val());
-          })
-          L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
+          var base_layer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
             maxZoom: 18,
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
               '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
               'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             id: 'mapbox.streets'
-          }).addTo(mapsample);
-          load_canairio_layer(mapsample, layerGroup, data_references[0]);
-
+          });
+          var mapsample = L.map('mapid', {
+            center: [4.60, -74.13],
+            zoom: 14,
+            layers: [base_layer, measurements]
+          });
+          var info = conventions_map(mapsample);
+          $('#select_map').change(function () {
+            load_canairio_layer(mapsample, measurements, $(this).val());
+          });
+          load_canairio_layer(mapsample, measurements, data_references[0]);
         </script>
       </div>
     </section>

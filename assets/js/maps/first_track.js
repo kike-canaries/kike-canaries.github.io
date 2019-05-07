@@ -50,7 +50,7 @@ function pick_color(value) {
 
 function track_duration(original_duration) {
   var duration = original_duration
-  console.log(duration);
+
   var result = '';
   if (duration > 3600) {
     duration = Math.round(duration / 3600);
