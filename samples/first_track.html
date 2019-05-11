@@ -19,6 +19,7 @@
     integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
     crossorigin=""></script>
   <script type="text/javascript" src="../assets/js/maps/Leaflet.Icon.Glyph.js"></script>
+  <script src="../assets/js/maps/leaflet-animated-marker.js"></script>
   <script src="../assets/js/maps/first_track.js"></script>
   <style>
     .leaflet-marker-icon.sans-serif {
@@ -51,12 +52,20 @@
       width: 260px;
     }
 
-    .legend i {
+    .info i {
       width: 18px;
       height: 18px;
       float: left;
       margin: 0 8px 0 0;
       opacity: 0.7;
+    }
+
+    div.leaflet-control-layers-overlays label div span {
+      color:black;
+    }
+
+    input.leaflet-control-layers-selector {
+      margin-left: 3em;
     }
   </style>
 </head>
@@ -120,6 +129,7 @@
           });
 
           var measurements = L.layerGroup();
+          var travel = L.layerGroup();
 
           var base_layer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
             maxZoom: 18,
@@ -131,13 +141,15 @@
           var mapsample = L.map('mapid', {
             center: [4.60, -74.13],
             zoom: 14,
-            layers: [base_layer, measurements]
+            layers: [base_layer, travel],
           });
+
           var info = conventions_map(mapsample);
           $('#select_map').change(function () {
-            load_canairio_layer(mapsample, measurements, $(this).val());
+            load_canairio_layer(mapsample, measurements, travel, $(this).val());
           });
-          load_canairio_layer(mapsample, measurements, data_references[0]);
+          load_canairio_layer(mapsample, measurements, travel, data_references[0]);
+          L.control.layers(null, {"Recorrido": measurements, "Animación": travel}).addTo(mapsample);
         </script>
       </div>
     </section>

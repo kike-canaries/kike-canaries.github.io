@@ -89,17 +89,17 @@ function show_info(prop) {
   return prop.p25 + ' ' + new Date(prop.timestamp * 1000).toLocaleTimeString()
 }
 
-function configure_map(layerGroup, data) {
+function configure_map(mapsample, layerGroup, travelGroup, data) {
 
   info = find_limits(data);
   $('#interval').text('Entre ' + info.min + ' y ' + info.max);
   $('#date').text(date_text(info.first.properties.timestamp, info.last.properties.timestamp));
-  var start_marker = L.marker([info.first.geometry.coordinates[1], info.first.geometry.coordinates[0]], { icon: L.icon.glyph({ prefix: '', cssClass: 'sans-serif', glyph: '&alpha;' }) });
-  var end_marker = L.marker([info.last.geometry.coordinates[1], info.last.geometry.coordinates[0]], { icon: L.icon.glyph({ prefix: '', cssClass: 'sans-serif', glyph: '&Omega;' }) });
+  colors = []
   geojsonLayer = L.geoJSON(data,
     {
       pointToLayer: function (feature, latlng) {
         var color = pick_color(feature.properties.p25);
+        colors.push(color);
         return L.circleMarker(latlng, {
           fillColor: color,
           color: color,
@@ -109,6 +109,7 @@ function configure_map(layerGroup, data) {
         }).on({
           mouseover: function (e) {
             $('#pm25_holder').text(show_info(feature.properties));
+            $(".sample").css('background', color);
           },
           mouseout: function (e) {
             $('#pm25_holder').text('Pasa sobre el recorrido');
@@ -117,34 +118,49 @@ function configure_map(layerGroup, data) {
       }
     }
   );
-  start_marker.addTo(geojsonLayer);
-  end_marker.addTo(geojsonLayer);
+  routeLine = L.polyline(data.map(function(val) { return val.geometry.coordinates.slice().reverse(); }));
+  var bikeIcon = L.icon({
+    iconUrl: '../images/marker-bike-green-shadowed.png',
+    iconSize: [25, 39],
+    iconAnchor: [12, 39],
+    shadowUrl: null
+  });
+  var marker = L.animatedMarker(routeLine.getLatLngs(), {
+    icon: bikeIcon,
+    autoStart: true,
+    onEnd: function() {
+      $(this._shadow).fadeOut();
+      $(this._icon).fadeOut(3000, function(){
+        map.removeLayer(this);
+        $(".sample").css('background', 'white');
+      });
+    },
+    onTick: function(index) {
+      $('#pm25_holder').text(show_info(data[this._i].properties));
+      $(".sample").css('background', colors[this._i]);
+    },
+  });
+  color = pick_color(info.first.properties.p25);
+
+  marker.addTo(travelGroup);
   geojsonLayer.addTo(layerGroup);
   return geojsonLayer;
 }
 
-function load_canairio_layer(mapsample, layerGroup, filename) {
+function load_canairio_layer(mapsample, layerGroup, travelGroup, filename) {
   $('.loader').show();
   var reference = 'data/' + filename + '.json';
   layerGroup.clearLayers();
+  travelGroup.clearLayers();
   $('#filename').attr('href', reference);
   $.getJSON(reference)
     .done(function (data) {
-      layer = configure_map(layerGroup, data);
+      layer = configure_map(mapsample, layerGroup, travelGroup, data);
       mapsample.fitBounds(layer.getBounds());
       $('.loader').hide();
+      mapsample.data = data;
     })
     .fail(function () { alert('No pudimos obtener los puntos, déjanos saber info@canair.io') });
-}
-
-function roundNumber(inNumber) {
-  return (Math.round(inNumber / 10) * 10);
-}
-
-function calcPropRadius(attributeValue) {
-  var scaleFactor = 16;
-  var area = attributeValue * scaleFactor;
-  return Math.sqrt(area / Math.PI) * 2;
 }
 
 function conventions_map(map) {
@@ -173,7 +189,7 @@ function conventions_map(map) {
 
 	info.onAdd = function (map) {
 		this._div = L.DomUtil.create('div', 'info data');
-		this._div.innerHTML = '<h4>Particulado</h4><span id="pm25_holder">Pasa sobre el recorrido</span>';
+		this._div.innerHTML = '<h4>Particulado</h4><i class="sample"></i><span id="pm25_holder">Pasa sobre el recorrido</span>';
 		return this._div;
 	};
 
