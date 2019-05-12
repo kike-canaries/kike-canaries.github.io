@@ -196,3 +196,66 @@ function conventions_map(map) {
   info.addTo(map);
   return info;
 }
+
+function getUrlParameter(sParam) {
+  var sPageURL = window.location.search.substring(1),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+  }
+};
+
+function init_controls() {
+  var data_references = [
+    '20190502185441',
+    '20190407191913',
+    '20190403124450',
+    '20190402112323',
+    '20190327153956',
+    '20190327141715',
+    '20190323085459',
+    '20190308180811',
+    '20190227192004',
+    '20190211183737',
+  ];
+  $('#select_map').html(function () {
+    inner_data = '';
+    data_references.forEach(element => {
+      inner_data += '<option value="' + element + '">' + element.substr(0, 8) + '</option>'
+    });
+    return inner_data
+  });
+
+  var measurements = L.layerGroup();
+  var travel = L.layerGroup();
+
+  var base_layer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox.streets'
+  });
+  var mapsample = L.map('mapid', {
+    center: [4.60, -74.13],
+    zoom: 14,
+    layers: [base_layer, measurements, travel],
+  });
+
+  var info = conventions_map(mapsample);
+  $('#select_map').change(function () {
+    load_canairio_layer(mapsample, measurements, travel, $(this).val());
+  });
+
+  track_name = getUrlParameter('track_name') || data_references[0]
+  load_canairio_layer(mapsample, measurements, travel, track_name);
+  L.control.layers(null, {"Recorrido": measurements, "Animación": travel}).addTo(mapsample);
+
+}
