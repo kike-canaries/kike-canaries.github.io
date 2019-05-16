@@ -1,24 +1,49 @@
 
 function find_limits(data) {
+  var minx = Infinity;
+  var miny = Infinity;
+  var maxx = -Infinity;
+  var maxy = -Infinity;
   var min = Infinity;
   var max = -Infinity;
   var first_sample = data[0];
   var last_sample = data[data.length - 1];
+  var tolerance = 0.1;
+  var samples = Math.min(50, data.length);
+
   for (var feature in data) {
     var properties = data[feature].properties;
+    var coords = data[feature].geometry.coordinates;
     if (properties.p25 < min) {
       min = properties.p25;
     }
     else if (properties.p25 > max) {
       max = properties.p25;
     }
+    if (coords[0] < minx) {
+      minx = coords[0];
+    }
+    else if (coords[0] > maxx) {
+      maxx = coords[0];
+    }
+    if (coords[1] < miny) {
+      miny = coords[1];
+    }
+    else if (coords[1] > maxy) {
+      maxy = coords[1];
+    }
   }
+  d1 = minx - maxx;
+  d2 = miny - maxy;
+  tolerance = (d2*d2 + d1*d1) / samples;
 
   return {
     min: min,
     max: max,
     first: first_sample,
-    last: last_sample
+    last: last_sample,
+    limits: [minx, miny, maxx, maxy],
+    tolerance: tolerance
   };
 }
 
@@ -30,20 +55,20 @@ function linear_interpolation(ar, ag, ab, br, bg, bb, t) {
 }
 
 function pick_color(value) {
-  if (value <= 12) {
+  if (value <= 50) {
     return linear_interpolation(5, 141, 5, 30, 161, 15, value / 12);
   }
-  else if (value <= 35.4) {
+  else if (value <= 100) {
     return linear_interpolation(250, 250, 1, 247, 240, 16, value / 35.4);
   }
-  else if (value <= 55.4) {
+  else if (value <= 150) {
     return linear_interpolation(250, 150, 0, 255, 69, 0, value / 55);
   }
-  else if (value <= 150.4) {
+  else if (value <= 200) {
     return linear_interpolation(255, 51, 51, 204, 0, 0, value / 150);
   }
-  else if (value <= 250) {
-    return linear_interpolation(153, 76, 0, 56, 44, 30, value / 250);
+  else if (value <= 300) {
+    return linear_interpolation(128, 0, 128, 56, 44, 30, value / 250);
   }
   return linear_interpolation(56, 44, 30, 0, 0, 0, Math.min(1, value / 500));
 }
@@ -89,9 +114,10 @@ function show_info(prop) {
   return prop.p25 + ' ' + new Date(prop.timestamp * 1000).toLocaleTimeString()
 }
 
-function configure_map(mapsample, layerGroup, travelGroup, data) {
+function configure_map(mapsample, layerGroup, travelGroup, heatGroup, data) {
 
   info = find_limits(data);
+  mapsample.info = info;
   $('#interval').text('Entre ' + info.min + ' y ' + info.max);
   $('#date').text(date_text(info.first.properties.timestamp, info.last.properties.timestamp));
   colors = []
@@ -104,8 +130,8 @@ function configure_map(mapsample, layerGroup, travelGroup, data) {
           fillColor: color,
           color: color,
           weight: 1,
-          fillOpacity: 0.6,
-          radius: 3 + Math.min(20, 20 * feature.properties.p25 / (info.max - info.min))
+          fillOpacity: 0.4,
+          radius: 10
         }).on({
           mouseover: function (e) {
             $('#pm25_holder').text(show_info(feature.properties));
@@ -131,7 +157,7 @@ function configure_map(mapsample, layerGroup, travelGroup, data) {
     onEnd: function() {
       $(this._shadow).fadeOut();
       $(this._icon).fadeOut(3000, function(){
-        map.removeLayer(this);
+        travelGroup.removeLayer(this);
         $(".sample").css('background', 'white');
       });
     },
@@ -142,20 +168,41 @@ function configure_map(mapsample, layerGroup, travelGroup, data) {
   });
   color = pick_color(info.first.properties.p25);
 
+  var points = data.map(function(val) {
+    element = val.geometry.coordinates.slice().reverse();
+    element.push(val.properties.p25);
+    return element;
+  });
+  /*
+  * Simplificar puntos
+  * Generar grilla de hexágonos
+  * Asignar valores de interpolación en los centros de los hexágonos
+  * Colocar colores a los hexágonos
+  */
+  var heatLayer = L.idwLayer(points, {
+    cellSize: 25,
+    exp: 4,
+    opacity: 0.5,
+    max: 300,
+    gradient: {0.16: 'green', 0.33: '#00DD00', 0.5: 'orange', 0.66: 'red', 0.8: '#800080', 1.0: 'brown' }
+  });
   marker.addTo(travelGroup);
   geojsonLayer.addTo(layerGroup);
+  heatLayer.addTo(heatGroup);
+
   return geojsonLayer;
 }
 
-function load_canairio_layer(mapsample, layerGroup, travelGroup, filename) {
+function load_canairio_layer(mapsample, layerGroup, travelGroup, heatGroup, filename) {
   $('.loader').show();
   var reference = 'data/' + filename + '.json';
   layerGroup.clearLayers();
   travelGroup.clearLayers();
+  heatGroup.clearLayers();
   $('#filename').attr('href', reference);
   $.getJSON(reference)
     .done(function (data) {
-      layer = configure_map(mapsample, layerGroup, travelGroup, data);
+      layer = configure_map(mapsample, layerGroup, travelGroup, heatGroup, data);
       mapsample.fitBounds(layer.getBounds());
       $('.loader').hide();
       mapsample.data = data;
@@ -168,7 +215,7 @@ function conventions_map(map) {
 
   legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend'),
-      grades = [0, 12, 35.4, 55.4, 150.4, 250.4],
+      grades = [0, 50, 100, 150, 200, 300],
       labels = [],
       from, to;
     for (var i = 0; i < grades.length; i++) {
@@ -235,6 +282,7 @@ function init_controls() {
 
   var measurements = L.layerGroup();
   var travel = L.layerGroup();
+  var heatmap = L.layerGroup();
 
   var base_layer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
     maxZoom: 18,
@@ -251,11 +299,11 @@ function init_controls() {
 
   var info = conventions_map(mapsample);
   $('#select_map').change(function () {
-    load_canairio_layer(mapsample, measurements, travel, $(this).val());
+    load_canairio_layer(mapsample, measurements, travel, heatmap, $(this).val());
   });
 
   track_name = getUrlParameter('track_name') || data_references[0]
-  load_canairio_layer(mapsample, measurements, travel, track_name);
-  L.control.layers(null, {"Recorrido": measurements, "Animación": travel}).addTo(mapsample);
-
+  load_canairio_layer(mapsample, measurements, travel, heatmap, track_name);
+  L.control.layers(null, {"Recorrido": measurements, "Animación": travel, "IDW": heatmap}).addTo(mapsample);
+  return mapsample;
 }
