@@ -1,5 +1,5 @@
 
-function find_limits(data) {
+function find_limits(mapsample, data) {
   var minx = Infinity;
   var miny = Infinity;
   var maxx = -Infinity;
@@ -36,7 +36,6 @@ function find_limits(data) {
   d1 = minx - maxx;
   d2 = miny - maxy;
   tolerance = (d2*d2 + d1*d1) / samples;
-
   return {
     min: min,
     max: max,
@@ -114,9 +113,9 @@ function show_info(prop) {
   return prop.p25 + ' ' + new Date(prop.timestamp * 1000).toLocaleTimeString()
 }
 
-function configure_map(mapsample, layerGroup, travelGroup, heatGroup, data) {
+function configure_map(mapsample, layerGroup, travelGroup, heatGroup, interpolationGroup, data) {
 
-  info = find_limits(data);
+  info = find_limits(mapsample, data);
   mapsample.info = info;
   $('#interval').text('Entre ' + info.min + ' y ' + info.max);
   $('#date').text(date_text(info.first.properties.timestamp, info.last.properties.timestamp));
@@ -168,17 +167,17 @@ function configure_map(mapsample, layerGroup, travelGroup, heatGroup, data) {
   });
   color = pick_color(info.first.properties.p25);
 
+  /*
+  * Hacer cálculo únicamente para el área que es
+  * https://github.com/JoranBeaufort/Leaflet.idw
+  * colocar como parámetro opcional el área de
+  * interés
+  */
   var points = data.map(function(val) {
     element = val.geometry.coordinates.slice().reverse();
     element.push(val.properties.p25);
     return element;
   });
-  /*
-  * Simplificar puntos
-  * Generar grilla de hexágonos
-  * Asignar valores de interpolación en los centros de los hexágonos
-  * Colocar colores a los hexágonos
-  */
   var heatLayer = L.idwLayer(points, {
     cellSize: 25,
     exp: 4,
@@ -186,6 +185,48 @@ function configure_map(mapsample, layerGroup, travelGroup, heatGroup, data) {
     max: 300,
     gradient: {0.16: 'green', 0.33: '#00DD00', 0.5: 'orange', 0.66: 'red', 0.8: '#800080', 1.0: 'brown' }
   });
+
+  /*
+  * Simplificar puntos
+  * Generar grilla de hexágonos
+  * Asignar valores de interpolación en los centros de los hexágonos
+    * https://github.com/oeo4b/kriging.js
+    * https://github.com/RaumZeit/MarchingSquares.js#computing-iso-bands
+    * https://en.wikipedia.org/wiki/Marching_squares
+  * Colocar colores a los hexágonos
+  * Opción sin hexágonos: https://github.com/Turfjs/turf/issues/1034#issuecomment-338423286
+  */
+
+  var points = turf.featureCollection(data.map(function(val) {
+    return turf.point(val.geometry.coordinates, { z: val.properties.p25 });
+  }));
+  var pointline = data.map(function(val){ return val.geometry.coordinates;});
+  var line = turf.lineString(pointline)
+  var options = {tolerance: 0.0005, highQuality: false, mutate: true};
+  var simplified = turf.simplify(line, options);
+  console.log(
+    turf.length(line, {units: 'kilometers'}),
+    turf.length(simplified, {units: 'kilometers'})
+  );
+  var buffered = turf.buffer(simplified, 150, {units: 'meters'});
+  console.log(data.length, simplified.geometry.coordinates.length)
+  if (simplified.geometry.coordinates.length < 150) {
+    options = {gridType: 'hex', property: 'z', units: 'meters'}
+    var grid = turf.interpolate(points, 150, options)
+    for (i=0; i < grid.features.length; i++) {
+      centroid = turf.centroid(grid.features[i])
+      if (turf.pointToLineDistance(turf.centroid(grid.features[i]), simplified) < 0.3) {
+        L.geoJSON(grid.features[i], {style: function (feature) {
+          return {fillOpacity: 0.8, color: pick_color(feature.properties.z)};
+            }}).bindPopup(function (layer) {
+              return ' ' + layer.feature.properties.z;
+            }).addTo(interpolationGroup);
+      }
+    }
+  }
+  else {
+    L.geoJSON(buffered).addTo(interpolationGroup);
+  }
   marker.addTo(travelGroup);
   geojsonLayer.addTo(layerGroup);
   heatLayer.addTo(heatGroup);
@@ -193,16 +234,17 @@ function configure_map(mapsample, layerGroup, travelGroup, heatGroup, data) {
   return geojsonLayer;
 }
 
-function load_canairio_layer(mapsample, layerGroup, travelGroup, heatGroup, filename) {
+function load_canairio_layer(mapsample, layerGroup, travelGroup, heatGroup, interpolationGroup, filename) {
   $('.loader').show();
   var reference = 'data/' + filename + '.json';
   layerGroup.clearLayers();
   travelGroup.clearLayers();
   heatGroup.clearLayers();
+  interpolationGroup.clearLayers();
   $('#filename').attr('href', reference);
   $.getJSON(reference)
     .done(function (data) {
-      layer = configure_map(mapsample, layerGroup, travelGroup, heatGroup, data);
+      layer = configure_map(mapsample, layerGroup, travelGroup, heatGroup, interpolationGroup, data);
       mapsample.fitBounds(layer.getBounds());
       $('.loader').hide();
       mapsample.data = data;
@@ -283,6 +325,7 @@ function init_controls() {
   var measurements = L.layerGroup();
   var travel = L.layerGroup();
   var heatmap = L.layerGroup();
+  var interpolation = L.layerGroup();
 
   var base_layer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
     maxZoom: 18,
@@ -294,16 +337,22 @@ function init_controls() {
   var mapsample = L.map('mapid', {
     center: [4.60, -74.13],
     zoom: 14,
-    layers: [base_layer, measurements, travel],
+    layers: [base_layer, measurements, interpolation],
   });
 
   var info = conventions_map(mapsample);
   $('#select_map').change(function () {
-    load_canairio_layer(mapsample, measurements, travel, heatmap, $(this).val());
+    track_name = $(this).val();
+    load_canairio_layer(mapsample, measurements, travel, heatmap, interpolation, track_name);
   });
 
   track_name = getUrlParameter('track_name') || data_references[0]
-  load_canairio_layer(mapsample, measurements, travel, heatmap, track_name);
-  L.control.layers(null, {"Recorrido": measurements, "Animación": travel, "IDW": heatmap}).addTo(mapsample);
+  load_canairio_layer(mapsample, measurements, travel, heatmap, interpolation, track_name);
+  L.control.layers(null, {
+    "Recorrido": measurements,
+    "Animación": travel,
+    "IDW": heatmap,
+    "Interpolación": interpolation
+  }).addTo(mapsample);
   return mapsample;
 }
