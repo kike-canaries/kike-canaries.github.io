@@ -117,7 +117,6 @@ function configure_map(mapsample, layerGroup, travelGroup, heatGroup, interpolat
 
   info = find_limits(mapsample, data);
   mapsample.info = info;
-  $('#interval').text('Entre ' + info.min + ' y ' + info.max);
   $('#date').text(date_text(info.first.properties.timestamp, info.last.properties.timestamp));
   colors = []
   geojsonLayer = L.geoJSON(data,
@@ -204,12 +203,10 @@ function configure_map(mapsample, layerGroup, travelGroup, heatGroup, interpolat
   var line = turf.lineString(pointline)
   var options = {tolerance: 0.0005, highQuality: false, mutate: true};
   var simplified = turf.simplify(line, options);
-  console.log(
-    turf.length(line, {units: 'kilometers'}),
-    turf.length(simplified, {units: 'kilometers'})
-  );
+  var distance = Math.round(turf.length(simplified, {units: 'kilometers'}) * 100) / 100;
+  $('#interval').text('Entre ' + info.min + ' y ' + info.max + ' en ' +  distance + ' kilómetros');
   var buffered = turf.buffer(simplified, 150, {units: 'meters'});
-  console.log(data.length, simplified.geometry.coordinates.length)
+
   if (simplified.geometry.coordinates.length < 150) {
     options = {gridType: 'hex', property: 'z', units: 'meters'}
     var grid = turf.interpolate(points, 150, options)
