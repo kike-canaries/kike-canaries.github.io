@@ -1,3 +1,4 @@
+var is_mobile = false;
 
 function find_limits(mapsample, data) {
   var minx = Infinity;
@@ -129,7 +130,7 @@ function configure_map(mapsample, layerGroup, travelGroup, heatGroup, interpolat
           color: color,
           weight: 1,
           fillOpacity: 0.4,
-          radius: 10
+          radius: is_mobile? 10 : 3 + Math.min(20, 20 * feature.properties.p25 / (info.max - info.min))
         }).on({
           mouseover: function (e) {
             $('#pm25_holder').text(show_info(feature.properties));
@@ -319,6 +320,10 @@ function init_controls() {
     return inner_data
   });
 
+  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    is_mobile = true;
+  }
+
   var measurements = L.layerGroup();
   var travel = L.layerGroup();
   var heatmap = L.layerGroup();
@@ -334,7 +339,7 @@ function init_controls() {
   var mapsample = L.map('mapid', {
     center: [4.60, -74.13],
     zoom: 14,
-    layers: [base_layer, measurements, interpolation],
+    layers: [base_layer, measurements, travel],
   });
 
   var info = conventions_map(mapsample);
