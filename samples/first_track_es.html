@@ -3,7 +3,7 @@
 
 <head>
 
-  <title>CanAirIO - Some sample tracks</title>
+  <title>Canair - Ejemplos de mediciones en recorrido</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="../assets/css/main.css" />
@@ -76,7 +76,7 @@
 
   <!-- Header -->
   <header id="header">
-    <a href="/index.html" class="title">CanAirIO</a>
+    <a href="/index.html" class="title">Canair</a>
     <nav>
       <ul>
         <li><a href="/index.html">Home</a></li>
@@ -90,25 +90,31 @@
     <!-- Main -->
     <section id="main" class="wrapper">
       <div class="inner">
-        <h1 class="major">Some shared tracks</h1>
-        <p>These are captures shared by some of our users with Android and a CanAirIO device, showing short routes by bike and others by car. This is our first effort in publicly presenting the data we generate. If you have any suggestions please do not hesitate to <a href="/index.html#three">contact us</a>. Go ahead and get your device so you can report either with a fixed station or when moving through the city.
+        <h1 class="major">Algunos tracks compartidos</h1>
+        <p>Estas son algunas de las mediciones compartidas por algunos de nuestros
+          usuarios que tienen un Android y un dispositivo, los recorridos cortos en bicicleta
+          y otros en automóvil. Es nuestro primer intento por proyectar de forma pública
+          la información que vamos generando. Si tienes sugerencias, por favor no dudes
+          en <a href="/index.html#three">contactarnos</a>. Anímate a contar con tu dispositivo para que
+          puedas reportar bien sea con una estación fija o cuando te movilizas por la ciudad.
         </p>
         <ul class="alt">
-          <li><b>Date</b>: <span id="date">...</span></li>
-          <li><b>Measure</b>: <span id="interval">...</span></li>
-          <li><b>File</b>: <span><a id="filename" targer="_blank" href="">show</a></span></li>
+          <li><b>Fecha</b>: <span id="date">...</span></li>
+          <li><b>Medición</b>: <span id="interval">...</span></li>
+          <li><b>Archivo</b>: <span><a id="filename" targer="_blank" href="">Ver</a></span></li>
         </ul>
 
         <form>
           <select id="select_map"></select>
         </form>
         <a name="the_map"></a>
-        <div class="loader" style="display: none">Loading something for you..</div>
+        <div class="loader" style="display: none">Trayendo algo para tí, vale la pena...</div>
         <div id="mapid" style="width: 100%; height: 400px;"></div>
         <script>
           var mapsample = init_controls();
         </script>
-        <p><a href="#the_map">One tip</a>: please visit <a href="https://github.com/kike-canaries/kike-canaries.github.io/tree/master/samples/data">sources</a> and choose any track, for example:  
+        <p><a href="#the_map">Hay</a> un truco adicional: visita <a href="https://github.com/kike-canaries/kike-canaries.github.io/tree/master/samples/data">nuestras fuentes</a> y elige alguno
+        de los archivos que tenemos allí(solamente el nombre, sin el .json) y cambia la barra de navegación, podrás ver cómo luce el recorrido, por Ejemplo:
         <a href="first_track.html#the_map?track_name=20190207215242">https://canair.io/samples/first_track.html?track_name=20190207215242</a>.</p>
       </div>
     </section>
