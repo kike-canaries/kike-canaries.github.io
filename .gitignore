@@ -1,0 +1,13 @@
+# jekyll
+_site
+.sass-cache/
+*.lock
+
+# Log Files
+*.log
+
+#Vim files
+*.*.swp
+
+#Project
+old
