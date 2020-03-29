@@ -3890,3 +3890,16 @@ input, select, textarea {
 			}
 
 		}
+
+		/* Mapa */
+		#mapid{
+			 width: 100%; 
+			 height: 600px;
+		}
+
+		@media (max-width: 600px){
+			#mapid{
+				width: 100%;
+				height: 600px;
+			}
+		}
