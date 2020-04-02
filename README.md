@@ -1,12 +1,11 @@
-# kike-canaries.github.io
-Landing page for Air Quality Measurement.
+# CanAirIO
+
+Landing page for CanAir.IO project, Citizen network for monitoring air quality
 
 ## Guidelines
 
 Perfect Ortography is a must, be nice is optional but it will help 
 people to come by more
-
-## Tools
 
 ### Hosting
 
