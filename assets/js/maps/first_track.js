@@ -329,7 +329,7 @@ function init_controls() {
   var heatmap = L.layerGroup();
   var interpolation = L.layerGroup();
 
-  var base_layer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2FuYWlyaW8iLCJhIjoiY2p2OXo3Y3VxMHlndjQ0bjMwajE4b2w2ZiJ9.ZfwXi-3Ald0O0AfpVvvm1g', {
+  var base_layer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWtrcyIsImEiOiI0dnRpYjEwIn0.bg4-uwxnD5hWop2Zu48ZLA', {
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
