@@ -3,40 +3,47 @@
  * CanAirIO easy OTA Loader
  * ========================
  * 
- * This sketch will able to load a basic client for get the last version of 
- * CanAir.IO firmware.
+ * This sketch will able to load a basic client
+ * for get the last version of CanAir.IO firmware.
  * 
- * You can run it from your Arduino IDE or from your Android phone
- * using ArduinoDroid app with OTG cable connected to your board.
+ * You can run it from your Arduino IDE or from 
+ * your Android phone using ArduinoDroid app with
+ * OTG cable connected to your board.
  * 
  * Steps:
  * 
- * - Please first install Arduino Json Library from Arduino Library Manager
- * - Configure your board: ESP32 Dev Module or similar board
- * - Select partion schema to **minimal** (see documentation for details)
+ * - Install Arduino JSON Library from Arduino Library Manager
+ * - Choose ESP32 Dev Module or similar board
+ * - Select partion schema to **minimal** (see README for details)
  * - Configure your WiFi credentials below
- * - Build and upload, wait for, the last version of CanAirIO will be installed
+ * - Build & Upload, the last version of CanAirIO will be installed
  * - (optional) see the progress on Serial console or monitor.
- *
  */
 
-/***************************************************
+/***********************************
  *  S E T U P
- ***************************************************/ 
+ **********************************/ 
 
 // !!!! Change to your WiFi credentials !!!
 const char *ssid = "test_hotspot";
 const char *password = "testHS1234";
 
-String FLAVOR = "TTGO_T7";       // for it or similar boards (ESP32 Wroover or ESP32Dev modules)
+// Choose it, also works for similar boards 
+// (ESP32 Wroover or ESP32Dev modules)
+
+String FLAVOR = "TTGO_T7";
+
 // String FLAVOR = "HELTEC";
 // String FLAVOR = "ESP32DEVKIT";
 // String FLAVOR = "WEMOSOLED";
 // String FLAVOR = "TTGO_T7";
 
-/****************************************************
+
+/***********************************
  *  E N D  O F  S E T U P
- ****************************************************/ 
+ **********************************/ 
+
+
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
@@ -147,7 +154,7 @@ static void splitHeader(String src, String &header, String &headerValue) {
 }
 
 void execOTA() {
-    
+
     WiFiClient client;
     int contentLength = 0;
     bool isValidContentType = false;
