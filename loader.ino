@@ -18,6 +18,9 @@
  * - Configure your WiFi credentials below
  * - Build & Upload, the last version of CanAirIO will be installed
  * - (optional) see the progress on Serial console or monitor.
+ *
+ * Complete documentation and video:
+ * https://github.com/hpsaturn/esp32-canairio-loader#readme
  */
 
 /***********************************
@@ -25,27 +28,23 @@
  **********************************/ 
 
 // !!!! Change to your WiFi credentials !!!
-const char *ssid = "test_hotspot";
-const char *password = "testHS1234";
+#define WIFINAME  "test_hotspot"
+#define WIFIPASSW "testHS1234"
 
 // Choose it, also works for similar boards 
 // (ESP32 Wroover or ESP32Dev modules)
 
-String FLAVOR = "TTGO_T7";
+#define FLAVOR "TTGO_T7"
 
-// String FLAVOR = "HELTEC";
-// String FLAVOR = "ESP32DEVKIT";
-// String FLAVOR = "WEMOSOLED";
-// String FLAVOR = "TTGO_T7";
-
+// #define FLAVOR "HELTEC"
+// #define FLAVOR "ESP32DEVKIT"
+// #define FLAVOR "WEMOSOLED"
+// #define FLAVOR "TTGO_T7"
 
 /***********************************
  *  E N D  O F  S E T U P
  **********************************/ 
 
-
-
-#include <Arduino.h>
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
 #include <Update.h>
@@ -61,9 +60,9 @@ int BASE_VERSION = 773;
 
 bool wifiSetup() {
     Serial.print("-->[OTA] Connecting to ");
-    Serial.print(ssid);
+    Serial.print(WIFIPASSW);
 
-    WiFi.begin(ssid, password);
+    WiFi.begin(WIFINAME,WIFIPASSW);
 
     int connect_try=0;
 
