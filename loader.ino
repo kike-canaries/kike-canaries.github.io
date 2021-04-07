@@ -279,7 +279,7 @@ void checkRemoteOTA() {
 }
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(57600);
     delay(2000);
     Serial.println();
     while (!wifiSetup());
