@@ -28,8 +28,9 @@
  **********************************/ 
 
 // !!!! Change to your WiFi credentials !!!
-#define WIFINAME  "test_hotspot"
-#define WIFIPASSW "testHS1234"
+
+#define WIFINAME  "TYPE_HERE_YOUR_WIFI_NAME"
+#define WIFIPASSW "TYPE_HERE_YOUR_WIFI_PASSWORD"
 
 // Choose it, also works for similar boards 
 // (ESP32 Wroover or ESP32Dev modules)
@@ -71,7 +72,7 @@ bool wifiSetup() {
         Serial.print(".");  
     }
 
-    if (connect_try == 10) {
+    if (connect_try >= 10) {
         Serial.println(" FAILED!");
         return false;
     }
