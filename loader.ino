@@ -35,9 +35,9 @@
 // Choose it, also works for similar boards 
 // (ESP32 Wroover or ESP32Dev modules)
 
-#define FLAVOR "TTGO_T7"
+#define FLAVOR "TTGO_TDISPLAY"  // TFT version (CanAirIO Bike)
 
-// #define FLAVOR "TTGO_TDISPLAY"  // TFT version
+// #define FLAVOR "TTGO_T7"
 // #define FLAVOR "HELTEC"
 // #define FLAVOR "ESP32DEVKIT"
 // #define FLAVOR "WEMOSOLED"
@@ -57,7 +57,7 @@ String _host;
 String _bin;
 int _port;
 
-String _endpoint="http://influxdb.canair.io:8080/releases/dev/firmware_";
+String _endpoint="http://influxdb.canair.io:8080/releases/prod/firmware_";
 int BASE_VERSION = 773;
 
 bool wifiSetup() {
