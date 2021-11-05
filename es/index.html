@@ -21,7 +21,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
 		<meta name="yandex-verification" content="df44ab6fdb86e48c" />
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-		<description>Red ciudadana de medición del aire.</description>
+		<description>Red ciudadana de calidad del aire.</description>
 	</head>
 	<body class="is-preload">
 
@@ -32,9 +32,9 @@
 						<ul>
 							<li><a href="#intro">CanAirIO</a></li>
 							<li><a href="#one">Qué buscamos</a></li>
+							<li><a href="#docs">Documentación</a></li>
 							<li><a href="#two">Cómo lo hacemos</a></li>
 							<li><a href="#three">Contáctanos</a></li>
-							<li><a href="#docs">Documentación</a></li>
 							<li><a href="privacy.html">Política de Privacidad</a></li>
 						</ul>
 					</nav>
@@ -51,37 +51,55 @@
           <p>CanAirIO es un proyecto de ciencia ciudadana con sensores móviles y fijos <br />
           para medir la calidad del aire usando sensores de bajo costo (PM 2.5) y celulares.</p>
 
-          <div class="inner" style="align:right;">
-            <ul class="icons" style="align:center;" align="center"> 
-              <li>
-                <ul class="icons" style="align:left;" align="left"> 
-                  <li><a href="https://github.com/kike-canaries" target="_blank" class="fa-github"><span class="label">GitHub</span></a></li>
-                  <li><a href="https://twitter.com/canairq" target="_blank" class="fa-twitter"><span class="label">Twitter</span></a></li>
-                  <li><a href="https://www.facebook.com/canairq/" target="_blank" class="fa-facebook"><span class="label">Facebook</span></a></li>
-                  <li><a href="https://www.instagram.com/canairq/" target="_blank" class="fa-instagram"><span class="label">Instagram</span></a></li>
-                  <li><a href="https://play.google.com/store/apps/details?id=hpsaturn.pollutionreporter&hl=en" target="_blank" class="fa-android"><span class="label">Instalar</span></a></li>
-                  <li><a href="https://t.me/airqco" target="_blank" class="fa-telegram"><span class="label">Telegram News Channel</span></a></li>
-                  <li><a href="https://t.me/canairio" target="_blank" class="fa-telegram"><span class="label">Telegram Chat Tech Support</span></a></li>
-                </ul>
-              </li>
-              <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay receives" src="http://img.shields.io/liberapay/receives/CanAirIO.svg?logo=liberapay"></span></a></li>
-              <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay patrons" src="http://img.shields.io/liberapay/patrons/CanAirIO.svg?logo=liberapay"></span></a></li>
-            </ul>
+          <div class="row" style="align:center;">
+            <div class="column">
+              <a href="https://mobile.canair.io/" target="_blank">
+                <img alt="Mobile Map" src="../images/mobile_map00.jpg" height="128"></a>
+            </div>
+            <div class="column">
+              <a href="http://influxdb.canair.io:8000/" target="_blank">
+                <img alt="Fixed Stations" src="../images/static_stations00.jpg" height="128"></a>
+            </div>
+            <div class="column">
+              <a href="http://daquina.io/canairio/" target="_blank">
+                <img alt="Static Stations" src="../images/static_stations_map00.jpg" height="128"></a>
+            </div>
           </div>
+
+          <ul></ul>
+ 
           <ul class="actions">
             <li><a href="#one" class="button scrolly">Saber más</a></li>
             <li><a href="../samples/first_track_es.html" class="button">Reportes.. </a></li>
             <li><a href="#talleres" class="button">Construye un CanAirIO</a></li>
           </ul>  
-        </div>
-        <div class="inner" style="align:right;">
-            <ul class="actions" style="align:right;" align="right"> 
-              <li style="horizontal-align: right;"><script src="https://liberapay.com/CanAirIO/widgets/button.js"></script>
-                <noscript><a href="https://liberapay.com/CanAirIO/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript></li>
-              <li><a href="index.html"><span><img alt="Spanish" src="../images/flag_of_spain.png"></span></a></li>
-              <li><a href="../index.html"><span><img alt="English" src="../images/flag_of_uk.png"></span></a></li> 
-            </ul>
+          <div class="row" style="align:right;" align="right">
+            <div>
+              <ul class="actions" > 
+                <li><a href="../index.html"><span><img alt="English" src="../images/flag_of_uk.png"></span></a></li> 
+                <li><a href="../es/index.html"><span><img alt="Spanish" src="../images/flag_of_spain.png"></span></a></li>
+              </ul>
+            </div>
+            <div>
+              <ul class="icons"> 
+                <li>
+                  <ul class="icons" style="align:left;" align="left"> 
+                    <li><a href="https://github.com/kike-canaries" target="_blank" class="fa-github"><span class="label">GitHub</span></a></li>
+                    <li><a href="https://twitter.com/canairq" target="_blank" class="fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="https://www.facebook.com/canairq/" target="_blank" class="fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="https://www.instagram.com/canairq/" target="_blank" class="fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="https://play.google.com/store/apps/details?id=hpsaturn.pollutionreporter&hl=en" target="_blank" class="fa-android"><span class="label">Instalar</span></a></li>
+                    <li><a href="https://t.me/airqco" target="_blank" class="fa-telegram"><span class="label">Telegram News Channel</span></a></li>
+                    <li><a href="https://t.me/canairio" target="_blank" class="fa-telegram"><span class="label">Telegram Chat Tech Support</span></a></li>
+                  </ul>
+                </li>
+                <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay receives" src="http://img.shields.io/liberapay/receives/CanAirIO.svg?logo=liberapay"></span></a></li>
+                <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay patrons" src="http://img.shields.io/liberapay/patrons/CanAirIO.svg?logo=liberapay"></span></a></li>
+              </ul> 
+            </div> 
           </div>
+        </div>
+        
       </section>
       <!-- One -->
       <section id="one" class="wrapper style2 spotlights">
@@ -289,6 +307,32 @@
 		<!-- Footer -->
 			<footer id="footer" class="wrapper style1-alt">
 				<div class="inner">
+          <div class="row" style="align:right;" align="right">
+            <div>
+              <ul class="actions" > 
+                <li><a href="../index.html"><span><img alt="English" src="../images/flag_of_uk.png"></span></a></li> 
+                <li><a href="../es/index.html"><span><img alt="Spanish" src="../images/flag_of_spain.png"></span></a></li>
+              </ul>
+            </div>
+            <div>
+              <ul class="icons"> 
+                <li>
+                  <ul class="icons" style="align:left;" align="left"> 
+                    <li><a href="https://github.com/kike-canaries" target="_blank" class="fa-github"><span class="label">GitHub</span></a></li>
+                    <li><a href="https://twitter.com/canairq" target="_blank" class="fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="https://www.facebook.com/canairq/" target="_blank" class="fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="https://www.instagram.com/canairq/" target="_blank" class="fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="https://play.google.com/store/apps/details?id=hpsaturn.pollutionreporter&hl=en" target="_blank" class="fa-android"><span class="label">Instalar</span></a></li>
+                    <li><a href="https://t.me/airqco" target="_blank" class="fa-telegram"><span class="label">Telegram News Channel</span></a></li>
+                    <li><a href="https://t.me/canairio" target="_blank" class="fa-telegram"><span class="label">Telegram Chat Tech Support</span></a></li>
+                  </ul>
+                </li>
+                <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay receives" src="http://img.shields.io/liberapay/receives/CanAirIO.svg?logo=liberapay"></span></a></li>
+                <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay patrons" src="http://img.shields.io/liberapay/patrons/CanAirIO.svg?logo=liberapay"></span></a></li>
+              </ul> 
+
+            </div> 
+          </div>
 					<ul class="menu">
 						<li>Queremos que lo hagas en tu ciudad y país.</li><li>Es real: <a href="https://github.com/kike-canaries">Primeros pasos</a></li>
 					</ul>
