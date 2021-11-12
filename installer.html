@@ -1,405 +1,160 @@
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>CanAirIO WEB Installer</title>
-    <meta
-      name="description"
-      content="Easily allow users to flash new firmware for their ESP-devices on the web."
-    />
-    <meta name="viewport" content="width=device-width" />
 
-    <meta property="og:title" content="ESP Web Tools" />
-    <meta property="og:site_name" content="ESP Web Tools" />
-    <meta
-      property="og:url"
-      content="https://esphome.github.io/esp-web-tools/"
-    />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:description"
-      content="Easily allow users to flash new firmware for their ESP-devices on the web."
-    />
-    <meta
-      property="og:image"
-      content="https://esphome.github.io/esp-web-tools/static/social.png"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ESP Web Tools" />
-    <meta
-      name="twitter:description"
-      content="Easily allow users to flash new firmware for their ESP-devices on the web."
-    />
-    <meta
-      name="twitter:image"
-      content="https://esphome.github.io/esp-web-tools/static/social.png"
-    />
-    <style>
-      body {
-        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Ubuntu, sans-serif;
-        padding: 0;
-        margin: 0;
-        line-height: 1.4;
-      }
-      .content {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 12px;
-      }
-      .project .logo {
-        float: right;
-      }
-      .project .logo img {
-        height: 50px;
-      }
-      a {
-        color: #03a9f4;
-      }
-      .videoWrapper {
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 */
-        height: 0;
-        margin-bottom: 25px;
-        background: #000;
-      }
-      .videoWrapper iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-      .content pre {
-        max-width: 100%;
-        overflow-y: scroll;
-      }
-      .footer {
-        margin-top: 24px;
-        border-top: 1px solid #ccc;
-        padding-top: 24px;
-        text-align: center;
-      }
-      .footer .initiative {
-        font-style: italic;
-        margin-top: 16px;
-      }
-      table {
-        border-spacing: 0;
-      }
-      td {
-        padding: 8px;
-        border-bottom: 1px solid #ccc;
-      }
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: #333;
-          color: #fff;
-        }
-        a {
-          color: #58a6ff;
-        }
-      }
-    </style>
-    <script module>
-      import(
-        // In development we import locally.
-        window.location.hostname === "localhost"
-          ? "/dist/web/install-button.js"
-          : "https://unpkg.com/esp-web-tools@5.0.0/dist/web/install-button.js?module"
-      );
-    </script>
-  </head>
-  <body>
-    <div class="content">
-      <h1>ESP Web Tools</h1>
-      <p>
-        ESP Web Tools is a set of open source tools to allow working with ESP
-        devices in the browser.
-        <a href="https://github.com/esphome/esp-web-tools"
-          >The code is available on GitHub.</a
-        >
-      </p>
-      <p>
-        To try it out and install
-        <a href="https://esphome.io">ESPHome</a> on an ESP, connect it to your
-        computer and hit the button:
-      </p>
-      <esp-web-install-button
-        manifest="static/firmware_build/manifest.json"
-      ></esp-web-install-button>
-      <p>
-        <i>
-          Note, this only works in desktop Chrome and Edge. Android support
-          should be possible but has not been implemented yet. If you don't see
-          your ESP device, you might miss <a href="#drivers">drivers</a>.
-        </i>
-      </p>
-      <p>
-        This works by combining
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API"
-          >Web Serial</a
-        >
-        with a manifest which describes the firmware. It will automatically
-        detect the type of the connected ESP device and find the right firmware
-        files in the manifest.
-      </p>
-      <div class="videoWrapper">
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube-nocookie.com/embed/k88BS8zgWq0"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </div>
-      <h2 id="used-by">Products using ESP Web Tools</h2>
-      <div class="project">
-        <a href="https://wled.me" class="logo"
-          ><img src="static/logos/wled.png" alt="WLED logo"
-        /></a>
-        <h3>WLED</h3>
-        <p>
-          Fast and feature-rich firmware to control NeoPixel (WS2812B, WS2811,
-          SK6812) LEDs and SPI based chipsets like the WS2801 and APA102.
-        </p>
-        <p>
-          <a href="https://install.wled.me" target="_blank"
-            >Installation Website</a
-          >
-        </p>
-      </div>
-      <div class="project">
-        <a href="https://tasmota.github.io" class="logo"
-          ><img src="static/logos/tasmota.svg" alt="Tasmota logo"
-        /></a>
-        <h3>Tasmota</h3>
-        <p>
-          Firmware with easy configuration using webUI, OTA updates, automation
-          using timers or rules, expandability and entirely local control over
-          MQTT, HTTP, Serial or KNX.
-        </p>
-        <p>
-          <a href="https://arendst.github.io/Tasmota-firmware/" target="_blank"
-            >Installation Website</a
-          >
-        </p>
-      </div>
-      <div class="project">
-        <a href="http://www.espeasy.com/" class="logo"
-          ><img src="static/logos/espeasy.png" alt="ESPEasy logo"
-        /></a>
-        <h3>ESPEasy</h3>
-        <p>Easy MultiSensor device based on ESP8266/ESP32.</p>
-        <p>
-          <a href="https://td-er.nl/ESPEasy/" target="_blank"
-            >Installation Website</a
-          >
-        </p>
-      </div>
-      <div class="project">
-        <a href="https://esphome.io" class="logo"
-          ><img src="static/logos/esphome.svg" alt="ESPHome logo"
-        /></a>
-        <h3>ESPHome</h3>
-        <p>
-          No-code platform for ESP devices. Uses ESP Web Tools in their
-          dashboard to install ESPHome on devices.
-        </p>
-        <p>
-          <a href="https://esphome.io" target="_blank">Website</a>
-        </p>
-      </div>
-      <h2 id="add-website">Adding ESP Web Tools to your website</h2>
-      <p>
-        To add this to your own website, create a manifest and add the button to
-        your website. Make sure you update the manifest attribute to point at
-        your manifest.
-      </p>
-      <p>
-        You can import ESP Web Tools directly from the unpkg CDN or
-        <a href="https://unpkg.com/browse/esp-web-tools/dist/web/"
-          >download the files</a
-        >
-        and put them on your website.
-      </p>
-      <pre>
-&lt;script
-  type="module"
-  src="https://unpkg.com/esp-web-tools@5.0.0/dist/web/install-button.js?module"
->&lt;/script>
+<head>
+  <meta charset="utf-8" />
+  <title>CanAirIO WEB Installer</title>
+  <meta name="description" content="Easily allow users to flash new firmware for their ESP-devices on the web." />
+  <meta name="viewport" content="width=device-width" />
 
-&lt;esp-web-install-button
-  manifest="static/firmware_build/manifest.json"
->&lt;/esp-web-install-button></pre
-      >
-      <p>
-        Your website needs to be served over <code>https://</code>. If your
-        manifest is hosted on another server, make sure you configure
-        <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
-          >the CORS-headers</a
-        >
-        for your manifest and firmware files such that your website is allowed
-        to fetch those files by adding the header
-        <code
-          >Access-Control-Allow-Origin: https://domain-of-your-website.com</code
-        >.
-      </p>
+  <meta property="og:title" content="CanAirIO Web Installer" />
+  <meta property="og:site_name" content="CanAirIO Web Installer" />
+  <meta property="og:url" content="https://canair.io/installer.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Easily allow users to flash new CanAirIO firmware for their ESP-devices on the web." />
+  <meta property="og:image" content="https://canair.io/images/canairio_web_installer_social.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CanAirIO Web Installer" />
+  <meta name="twitter:description" content="Easily allow users to flash new CanAirIO firmware for their ESP-devices on the web." />
+  <meta name="twitter:image" content="https://canair.io/images/canairio_web_installer_social.png" />
+  
 
-      <p>
-        ESP Web Tools can also be integrated in your projects by installing it
-        via NPM:<br />
-        <code>npm install --save esp-web-tools</code>
-      </p>
-      <h3 id="manifest">Creating your manifest</h3>
-      <p>
-        ESP Web Tools manifest describe the firmware that you want to install.
-        It allows specifying different builds for the different types of ESP
-        devices. Current supported chip families are <code>ESP8266</code>,
-        <code>ESP32</code>, <code>ESP32C3</code> and <code>ESP32S2</code>. The
-        correct build will be automatically selected based on the type of the
-        ESP device we detect via the serial port.
-      </p>
-      <pre>
-{
-  "name": "ESPHome",
-  "version": "2021.11.0",
-  "home_assistant_domain": "esphome",
-  "new_install_skip_erase": false,
-  "builds": [
-    {
-      "chipFamily": "ESP32",
-      "parts": [
-        { "path": "bootloader.bin", "offset": 4096 },
-        { "path": "partitions.bin", "offset": 32768 },
-        { "path": "ota.bin", "offset": 57344 },
-        { "path": "firmware.bin", "offset": 65536 }
-      ]
-    },
-    {
-      "chipFamily": "ESP8266",
-      "parts": [
-        { "path": "esp8266.bin", "offset": 0 }
-      ]
-    }
-  ]
-}</pre
-      >
-      <p>
-        Each build contains a list of parts to be flashed to the ESP device.
-        Each part consists of a path to the file and an offset on the flash
-        where it should be installed. Part paths are resolved relative to the
-        path of the manifest, but can also be URLs to other hosts.
-      </p>
-      <p>
-        If your firmware is supported by Home Assistant, you can add the
-        optional key <code>home_assistant_domain</code>. If present, ESP Web
-        Tools will link the user to add this device to Home Assistant.
-      </p>
-      <p>
-        By default a new installation will erase the entire flash. If you want
-        to skip this step, set the optional key
-        <code>new_install_skip_erase</code> to <code>true</code>. ESP Web Tools
-        considers it a new installation if it is unable to detect the current
-        firmware of the device (via Improv Serial) or if the detected firmware
-        does not match the name specififed in the manifest.
-      </p>
-      <h3 id="improv">Wi-Fi provisioning</h3>
-      <p>
-        ESP Web Tools has support for the
-        <a href="https://www.improv-wifi.com/serial"
-          >Improv Wi-Fi serial standard</a
-        >. This is an open standard to allow configuring Wi-Fi via the serial
-        port.
-      </p>
-      <p>
-        If Improv is supported, a user will be guided to connect the device to
-        the network after installation. It also allows the user to connect
-        already installed devices and re-configure the wireless network
-        settings.
-      </p>
+  <script type="module" src="https://unpkg.com/esp-web-tools@5.0.0/dist/web/install-button.js?module"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+  
+</head>
 
-      <h3 id="customize">Customizing the look and feel</h3>
-      <p>
-        There are multiple options to change the look and feel of the button and
-        other elements.
-      </p>
-      <h4>Change colors</h4>
-      <p>
-        You can change the colors of the default UI elements with CSS custom
-        properties (variables), the following variables are available:
-      </p>
+<body class="is-preload">
+
+  <!-- Header -->
+  <header id="header">
+    <a href="index.html" class="title">CanAirIO</a>
+    <nav>
       <ul>
-        <li><code>--esp-tools-button-color</code></li>
-        <li><code>--esp-tools-button-text-color</code></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="disclaimer.html" class="active">Disclaimer</a></li>
       </ul>
-      <p>There are also some attributes that can be used for styling:</p>
-      <table>
-        <tr>
-          <td><code>install-supported</code></td>
-          <td>Added if installing firmware is supported</td>
-        </tr>
-        <tr>
-          <td>
-            <code>install-unsupported</code>
-          </td>
-          <td>Added if installing firmware is not supported</td>
-        </tr>
-      </table>
-      <h4>Replace the button and message with a custom one</h4>
-      <p>
-        You can replace both the activation button and the message that is shown
-        when the user uses an unsupported browser or non-secure context with
-        your own elements. This can be done using the <code>activate</code>,
-        <code>unsupported</code> and <code>not-allowed</code> slots:
-      </p>
-      <pre>
-&lt;esp-web-install-button
-  manifest="static/firmware_build/manifest.json"
->
-  &lt;button slot="activate">Custom install button&lt;/button>
-  &lt;span slot="unsupported">Ah snap, your browser doesn't work!&lt;/span>
-  &lt;span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!&lt;/span>
-&lt;/esp-web-install-button>
-    </pre
-      >
-      <h3 id="drivers">USB Serial Drivers</h3>
-      <p>
-        If the serial port is not showing up, your computer might be missing the
-        drivers for the USB serial chip used in your ESP device. These drivers
-        work for most ESP devices:
-      </p>
-      <ul>
-        <li>
-          CP2102 (square chip):
-          <a
-            href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers"
-            >driver</a
-          >
-        </li>
-        <li>
-          CH341:
-          <a
-            href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers"
-            >driver</a
-          >
-        </li>
-      </ul>
-      <div class="footer">
+    </nav>
+
+  </header>
+
+  <div class="wrapper">
+    <section id="main" class="wrapper">
+
+      <div class="inner">
+        <h1 class="major">CanAirIO Web Installer</h1>
+
+        <div class="row">
+          <div class="col-6 col-12-medium">
+            <p>
+              CanAirIO Web installer use ESP Web open source tools to allow installing
+              the CanAirIO firmware base from the browser.
+
+              If you want know more about the ESP Web tools, please visit
+              <a href="https://github.com/esphome/esp-web-tools">the official GitHub.</a>
+            </p>
+            <p>
+              To try it out and install
+              <a href="https://canair.io">CanAirIO</a> on an ESP32, connect it to your
+              computer and hit the button:
+            </p>
+
+            <div class="row">
+              <div class="install-button">
+                <esp-web-install-button manifest="static/prod/manifest.json"></esp-web-install-button>
+              </div>
+            
+              <div class="install-button">
+                <esp-web-install-button manifest="static/dev/manifest.json"></esp-web-install-button>
+              </div>
+            </div>
+
+            <p>
+              <i>
+                Note, this only works in desktop Chrome and Edge. Android support
+                should be possible but has not been implemented yet. If you don't see
+                your ESP device, you might miss <a href="#drivers">drivers</a>.
+              </i>
+            </p>
+
+            <h3 id="drivers">USB Serial Drivers</h3>
+            <p>
+              If the serial port is not showing up, your computer might be missing the
+              drivers for the USB serial chip used in your ESP device. These drivers
+              work for most ESP devices:
+            </p>
+            <ul>
+              <li>
+                CP2102 (square chip):
+                <a
+                  href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">driver</a>
+              </li>
+              <li>
+                CH341:
+                <a href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers">driver</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-12-medium">
+            <img src="images/canairio_web_installer_social.png" alt="CanAirIO Web Installer" height="200" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <!-- Footer -->
+  <footer id="footer" class="wrapper style1-alt">
+    <div class="inner">
+      <div class="row" style="align:right;" align="right">
         <div>
-          ESP Web Tools –
-          <a href="https://github.com/esphome/esp-web-tools">GitHub</a>
+          <ul class="actions">
+            <li><a href="es/index.html"><span><img alt="Spanish" src="images/flag_of_spain.png"></span></a></li>
+            <li><a href="index.html"><span><img alt="English" src="images/flag_of_uk.png"></span></a></li>
+          </ul>
         </div>
-        <div class="initiative">
-          ESP Web Tools is a project by
-          <a href="https://esphome.io">ESPHome</a>.<br />
-          Development is funded by
-          <a href="https://www.nabucasa.com">Nabu Casa</a>.
+        <div>
+          <ul class="icons">
+            <li>
+              <ul class="icons" style="align:left;" align="left">
+                <li><a href="https://github.com/kike-canaries" target="_blank" class="fa-github"><span
+                      class="label">GitHub</span></a></li>
+                <li><a href="https://twitter.com/canairq" target="_blank" class="fa-twitter"><span
+                      class="label">Twitter</span></a></li>
+                <li><a href="https://www.facebook.com/canairq/" target="_blank" class="fa-facebook"><span
+                      class="label">Facebook</span></a></li>
+                <li><a href="https://www.instagram.com/canairq/" target="_blank" class="fa-instagram"><span
+                      class="label">Instagram</span></a></li>
+                <li><a href="https://play.google.com/store/apps/details?id=hpsaturn.pollutionreporter&hl=en"
+                    target="_blank" class="fa-android"><span class="label">Instalar</span></a></li>
+                <li><a href="https://t.me/airqco" target="_blank" class="fa-telegram"><span class="label">Telegram News
+                      Channel</span></a></li>
+                <li><a href="https://t.me/canairio" target="_blank" class="fa-telegram"><span class="label">Telegram
+                      Chat Tech Support</span></a></li>
+              </ul>
+            </li>
+            <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay receives"
+                    src="http://img.shields.io/liberapay/receives/CanAirIO.svg?logo=liberapay"></span></a></li>
+            <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay patrons"
+                    src="http://img.shields.io/liberapay/patrons/CanAirIO.svg?logo=liberapay"></span></a></li>
+          </ul>
+
         </div>
       </div>
+      <ul class="menu">
+        <li>We want you to do it in your city</li>
+        <li>It is for real: <a href="https://github.com/kike-canaries">First steps</a></li>
+      </ul>
     </div>
-  </body>
+
+  </footer>
+
+</body>
+
 </html>
 
