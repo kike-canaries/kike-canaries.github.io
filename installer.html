@@ -66,15 +66,24 @@
 
             <div class="row">
               <div class="install-button">
-                <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json"></esp-web-install-button>
+                <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  <button slot="activate">STABLE VERSION</button>
+                  <span slot="unsupported">Your browser doesn't work!</span>
+                  <span slot="not-allowed">You are not allowed to use this on HTTP!</span>
+                </esp-web-install-button>
+              </div>
+
+              <div class="install-button">
+                <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  <button slot="activate">TESTING VERSION</button>
+                  <span slot="unsupported">Your browser doesn't work!</span>
+                  <span slot="not-allowed">You are not allowed to use this on HTTP!</span>
+                </esp-web-install-button>
               </div>
             
-              <div class="install-button">
-                <esp-web-install-button manifest="static/dev/manifest.json"></esp-web-install-button>
-              </div>
             </div>
 
-            <p>
+            <p style="font-size : 16px; padding-top: 30px" >
               <i>
                 Note, this only works in desktop Chrome and Edge. Android support
                 should be possible but has not been implemented yet. If you don't see
@@ -143,7 +152,6 @@
             <li style="padding-left: 3px;"><a href="https://liberapay.com/CanAirIO"><span><img alt="Liberapay patrons"
                     src="http://img.shields.io/liberapay/patrons/CanAirIO.svg?logo=liberapay"></span></a></li>
           </ul>
-
         </div>
       </div>
       <ul class="menu">
