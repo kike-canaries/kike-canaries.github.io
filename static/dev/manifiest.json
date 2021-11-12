@@ -1,0 +1,16 @@
+{
+  "name": "CanAirIO Dev Version",
+  "version": "rev841",
+  "new_install_skip_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "../system/bootloader_dio_40m.bin", "offset": 4096 },
+        { "path": "../system/partitions.bin", "offset": 32768 },
+        { "path": "../system/boot_app0.bin", "offset": 57344 },
+        { "path": "canairio_TTGO_TDISPLAY_rev841.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
