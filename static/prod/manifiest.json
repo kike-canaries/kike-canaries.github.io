@@ -4,7 +4,7 @@
   "new_install_skip_erase": false,
   "builds": [
     {
-      "chipFamily": "ESP32",
+      "chipFamily": "ESP32 TTGO TDisplay",
       "parts": [
         { "path": "bootloader_dio_40m.bin", "offset": 4096 },
         { "path": "partitions.bin", "offset": 32768 },
