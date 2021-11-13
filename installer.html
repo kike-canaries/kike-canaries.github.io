@@ -50,6 +50,7 @@
     tr:nth-child(even) {
       background-color: #272661;
     } 
+ 
   </style>
   
 </head>
@@ -68,10 +69,10 @@
 
   </header>
 
-  <div class="wrapper">
+  <div class="wrapper" style="padding-left: 5%;">
     <section id="main" class="wrapper">
-
       <div class="inner">
+
         <h1 class="major">CanAirIO Web Installer</h1>
 
         <div class="row">
@@ -84,7 +85,8 @@
               <a href="https://github.com/esphome/esp-web-tools">the official GitHub.</a>
             </p>
             <p>
-              To try it out and install
+              CanAirIO is a set of ESP32-based devices that can be flashed with
+              the same firmware. For example to try it out and install
               <a href="https://canair.io/docs/canairio_bike.html">CanAirIO Bike version</a> on an <b>ESP32 TTGO TDisplay</b>, connect it to your
               computer and hit the button:
             </p>
@@ -108,10 +110,6 @@
             
             </div>
 
-          <!-- <div style="padding-top: 30px; width: 50%; margin: 0 auto">
-            <img src="images/canairio_web_installer_social.png" alt="CanAirIO Web Installer" height="200" />
-          </div> -->
-
             <p style="font-size : 16px; padding-top: 30px" >
               <i>
                 Note, this only works in desktop Chrome and Edge. Android support
@@ -119,8 +117,8 @@
                 your ESP device, you might miss <a href="#drivers">drivers</a>.
               </i>
             </p>
+            
             <h3 id="drivers">CanAirIO variants</h3>
-
             <table>
               <tr>
                 <th>Flavor</th>
@@ -199,10 +197,37 @@
                   <esp-web-install-button manifest="https://canair.io/static/dev/manifiest_ttgo_tq.json">
                   </esp-web-install-button>
                 </td>
-              </tr>
-              
+              </tr>  
             </table>
 
+            <p style="font-size : 16px;" >
+              <i>
+                The display OLED or TFT it is optional, but it is recommended.
+              </i>
+            </p>
+
+            <h3 id="drivers">OTA Updates</h3>
+
+            <div class="row">
+              <div class="col-6 col-12-medium">
+                <p>
+                  CanAirIO have remote firmware updates. Please download the CanAirIO app and setup WiFi connection to receive OTA updates.
+                </p>
+              </div>
+              <div class="col-6 col-12-medium" style="text-align: center; margin: auto;">
+                <a href="https://bit.ly/3HjDJqP" target="_blank">
+                <img src="images/googleplay_qr.png" alt="CanAirIO on GooglePlay" height="150px" /></a>
+              </div>
+            </div>
+                        
+            <h3 id="drivers">Next steps</h3>
+
+            <p>
+              After first run of CanAirIO without any hardware connected, you will able to see the Pax Counter (PAX) count in the
+              screen. It is also possible because CanAirIO with the WiFi module can be used as detector of people with mobile phones.
+              But you can connect a lot of sensors to it, please check our <a href="https://canair.io/docs">documentation</a> for more information.
+            </p>                
+            
             <h3 id="drivers">USB Serial Drivers</h3>
             <p>
               If the serial port is not showing up, your computer might be missing the
@@ -212,18 +237,17 @@
             <ul>
               <li>
                 CP2102 (square chip):
-                <a
-                  href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">driver</a>
+                <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers" target="_blank">driver</a>
               </li>
               <li>
                 CH341:
-                <a href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers">driver</a>
+                <a href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers" target="_blank">driver</a>
               </li>
             </ul>
           </div>
-          <div class="col-6 col-12-medium">
-            <a href="https://youtu.be/n3A6sJj_-Gc" target="_blank" style="padding-left: 20px" >
-            <img src="images/canairio_web_installer_youtube.png" alt="CanAirIO Web Installer" height="200" style="border: 5px solid #555" /></a>
+          <div class="col-6 col-12-medium" style="text-align: center;">
+            <a href="https://youtu.be/n3A6sJj_-Gc" target="_blank" >
+            <img src="images/canairio_web_installer_youtube.png" alt="CanAirIO Web Installer" height="250" style="border: 5px solid #555" /></a>
           </div>
         </div>
       </div>
