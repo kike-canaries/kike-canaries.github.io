@@ -26,6 +26,31 @@
   <noscript>
     <link rel="stylesheet" href="assets/css/noscript.css" />
   </noscript>
+
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 2px solid #cebde4;
+      text-align: left;
+      padding: 8px;
+      height: 10px;
+      font-family: arial, sans-serif;
+      font-size: 14px;
+    }
+    .install{
+      text-align: center;
+      font-size: 9px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #272661;
+    } 
+  </style>
   
 </head>
 
@@ -60,7 +85,7 @@
             </p>
             <p>
               To try it out and install
-              <a href="https://canair.io">CanAirIO</a> on an ESP32, connect it to your
+              <a href="https://canair.io/docs/canairio_bike.html">CanAirIO Bike version</a> on an <b>ESP32 TTGO TDisplay</b>, connect it to your
               computer and hit the button:
             </p>
 
@@ -94,6 +119,77 @@
                 your ESP device, you might miss <a href="#drivers">drivers</a>.
               </i>
             </p>
+            <h3 id="drivers">CanAirIO variants</h3>
+
+            <table>
+              <tr>
+                <th>Flavor</th>
+                <th>Display</th>
+                <th>Stable</th>
+                <th>Testing</th>
+              </tr>
+              <tr>
+                <td>Generic ESP32</td>
+                <td>OLED 64x48</td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+              </tr>
+              <tr>
+                <td>TTGO T7 or D1MINI</td>
+                <td>OLED 64x48</td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+              </tr>
+              <tr>
+                <td>ESP32DEVKIT</td>
+                <td>OLED 128x64</td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+              </tr>
+              <tr>
+                <td>Wemos</td>
+                <td>OLED 128x64</td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+              </tr>
+              <tr>
+                <td>TTGO TQ</td>
+                <td>TQ OLED</td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest.json">
+                  </esp-web-install-button>
+                </td>
+              </tr>
+              
+            </table>
 
             <h3 id="drivers">USB Serial Drivers</h3>
             <p>
