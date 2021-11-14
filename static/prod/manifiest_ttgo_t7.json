@@ -1,6 +1,6 @@
 {
   "name": "CanAirIO Prod Version",
-  "version": "rev841",
+  "version": "(TTGO_T7_rev841)",
   "new_install_skip_erase": false,
   "builds": [
     {
