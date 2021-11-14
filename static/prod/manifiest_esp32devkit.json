@@ -1,5 +1,5 @@
 {
-  "name": "CanAirIO Prod Version",
+  "name": "CanAirIO ESP32DEVKIT",
   "version": "rev841",
   "new_install_skip_erase": false,
   "builds": [
