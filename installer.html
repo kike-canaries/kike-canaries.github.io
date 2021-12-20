@@ -123,12 +123,14 @@
               <tr>
                 <th>Flavor</th>
                 <th>Display</th>
+                <th>TX/RX</th>
                 <th>Stable</th>
                 <th>Testing</th>
               </tr>
               <tr>
                 <td>Generic ESP32</td>
                 <td>OLED 64x48</td>
+                <td>16,17</td>
                 <td class="td install">
                   <esp-web-install-button manifest="https://canair.io/static/prod/manifiest_ttgo_t7.json">
                   </esp-web-install-button>
@@ -139,8 +141,22 @@
                 </td>
               </tr>
               <tr>
+                <td>Generic ESP32</td>
+                <td>OLED 128x64</td>
+                <td>3,1</td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/prod/manifiest_esp32picod4.json">
+                  </esp-web-install-button>
+                </td>
+                <td class="td install">
+                  <esp-web-install-button manifest="https://canair.io/static/dev/manifiest_esp32picod4.json">
+                  </esp-web-install-button>
+                </td>
+              </tr>
+              <tr>
                 <td>TTGO T7 or D1MINI</td>
                 <td>OLED 64x48</td>
+                <td>16,17</td>
                 <td class="td install">
                   <esp-web-install-button manifest="https://canair.io/static/prod/manifiest_ttgo_t7.json">
                   </esp-web-install-button>
@@ -153,6 +169,7 @@
               <tr>
                 <td>ESP32DEVKIT</td>
                 <td>OLED 128x64</td>
+                <td>16,17</td>
                 <td class="td install">
                   <esp-web-install-button manifest="https://canair.io/static/prod/manifiest_esp32devkit.json">
                   </esp-web-install-button>
@@ -165,6 +182,7 @@
               <tr>
                 <td>ESP32PICOD4</td>
                 <td>OLED 128x64</td>
+                <td>3,1</td>
                 <td class="td install">
                   <esp-web-install-button manifest="https://canair.io/static/prod/manifiest_esp32picod4.json">
                   </esp-web-install-button>
@@ -175,8 +193,9 @@
                 </td>
               </tr>
               <tr>
-                <td>Heltec</td>
+                <td>HELTEC</td>
                 <td>OLED 128x64</td>
+                <td>18,17</td>
                 <td class="td install">
                   <esp-web-install-button manifest="https://canair.io/static/prod/manifiest_heltec.json">
                   </esp-web-install-button>
@@ -187,8 +206,9 @@
                 </td>
               </tr>
               <tr>
-                <td>Wemos</td>
+                <td>WEMOS</td>
                 <td>OLED 128x64</td>
+                <td>15,13</td>
                 <td class="td install">
                   <esp-web-install-button manifest="https://canair.io/static/prod/manifiest_wemos.json">
                   </esp-web-install-button>
@@ -201,6 +221,7 @@
               <tr>
                 <td>TTGO TQ</td>
                 <td>TQ OLED</td>
+                <td>18,13</td>
                 <td class="td install">
                   <esp-web-install-button manifest="https://canair.io/static/prod/manifiest_ttgo_tq.json">
                   </esp-web-install-button>
@@ -214,7 +235,8 @@
 
             <p style="font-size : 16px;" >
               <i>
-                The display OLED or TFT it is optional, but it is recommended.
+                The display OLED or TFT it is optional, but it is recommended. You can try any flavor with your ESP32 board, the same model isn't mandatory, this only is a reference. 
+                The TX/RX it is only for UART sensors. For i2c sensors use the default pins. More <a href="https://github.com/kike-canaries/canairio_sensorlib#readme" target="_blank">here</a>.
               </i>
             </p>
 
@@ -261,7 +283,7 @@
 
             <h3 id="support">Support</h3>
             <p>
-              If you have any questions or problem please join us on our Telegram group: <a href="https://t.me/canairio" target="_blank">https://t.me/canairio</a> (Spanish/English)
+              If you have any questions or problem please join us on our <a href="https://t.me/canairio" target="_blank">Telegram group</a> (Spanish/English), or please submit a new issue <a href="https://github.com/kike-canaries/canairio_firmware/issues/new/choose" target="_blank">here</a>.
             </p>
           </div>
           <div class="col-6 col-12-medium" style="text-align: center;">
