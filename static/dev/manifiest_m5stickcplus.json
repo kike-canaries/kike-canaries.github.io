@@ -1,0 +1,16 @@
+{
+  "name": "CanAirIO M5STICKCPLUS",
+  "version": "rev895",
+  "new_install_skip_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "bootloader_dio_40m.bin", "offset": 4096 },
+        { "path": "partitions.bin", "offset": 32768 },
+        { "path": "boot_app0.bin", "offset": 57344 },
+        { "path": "canairio_M5STICKCPLUS_rev895.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
