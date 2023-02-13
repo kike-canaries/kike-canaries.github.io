@@ -7,7 +7,7 @@
     {
       "chipFamily": "ESP32",
       "parts": [
-        { "path": "http://influxdb.canair.io:8080/releases/webi/canairio_dev_rev931.bin", "offset": 0 }
+        { "path": "canairio_TTGO_T7_rev931.bin", "offset": 0 }
       ]
     }
   ]
